@@ -34,7 +34,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Added by Kitb
 gem "devise"
-
 gem "bootstrap-sass"
 
 group :development, :test do
