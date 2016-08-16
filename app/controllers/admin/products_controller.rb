@@ -1,4 +1,6 @@
 class Admin::ProductsController < ApplicationController
+  layout "admin"
+
   before_action :authenticate_user!   # verify the user who sign in
   before_action :admin_required       # limit user who sign in backstage must be admin user
 
