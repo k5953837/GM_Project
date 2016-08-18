@@ -4,7 +4,13 @@ Rails.application.routes.draw do
     resources :products
   end
 
-  resources :products
+  resources :products do
+    member do
+      # Specify path for add_to_cart_product_path
+      post :add_to_cart
+    end
+  end
+  resources :carts
 
   root "products#index"
 
