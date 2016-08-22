@@ -1,8 +1,14 @@
 class Order < ActiveRecord::Base
+  before_create :generate_token
   belongs_to :user
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_one :info, class_name: "OrderInfo", dependent: :destroy
+
+  # genertate radom token before create a order
+  def generate_token
+    self.token = SecureRandom.uuid
+  end
 
   # Declare the :info (order associated with orderinfo) has nested attributes structure
   # including buildind_name / building_address / shipping name / shipping address.
