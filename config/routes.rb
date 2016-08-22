@@ -10,7 +10,13 @@ Rails.application.routes.draw do
       post :add_to_cart
     end
   end
-  resources :carts
+
+  resources :carts do
+    # checkout is a self-defined path.
+    post "checkout", on: :collection
+  end
+
+  resources :orders
 
   root "products#index"
 
