@@ -4,20 +4,23 @@ class Order < ActiveRecord::Base
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_one :info, class_name: "OrderInfo", dependent: :destroy
 
+  # Declare the :info (order associated with orderinfo) has nested attributes structure
+  # including buildind_name / building_address / shipping name / shipping address.
   accepts_nested_attributes_for :info
 
   def build_item_cache_from_cart(cart)
     cart.items.each do |cart_item|
       item = items.build
       item.product_name = cart_item.title
-      item.quantity = cart.find_cart_item(cart_item).quantity
+      item.quantity = 1
       item.price = cart_item.price
       item.save
     end
   end
 
-  def calculate_total!(cart)
-    self.total = cart.total_price
+  # Calculate the shopping cart total money.
+  def calculate_total!(current_cart)
+    self.total = current_cart.total_price
     self.save
   end
 end

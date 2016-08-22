@@ -6,6 +6,10 @@ class Cart < ActiveRecord::Base
   # items (product here) is associated with cart_items
   has_many :items, :through => :cart_items, :source => :product
 
+  def find_cart_item(product)
+    cart_items.find_by(product_id: product)
+  end
+
   def add_product_to_cart(product)
     items << product
   end
