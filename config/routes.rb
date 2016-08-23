@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     # checkout is a self-defined path.
     # checkout_carts POST   /carts/checkout(.:format)           carts#checkout
     post "checkout", on: :collection
+    delete "clean", on: :collection
   end
 
   resources :orders do
