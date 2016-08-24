@@ -5,20 +5,18 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th width="80%">商品明細</th>
-          <th>單價</th>
+          <th width="80%"> 商品明細 </th>
+          <th> 單價 </th>
+          <th> 數量 </th>
         </tr>
       </thead>
 
       <tbody>
         <% current_cart.items.each do |product| %>
           <tr>
-            <td>
-              <%= link_to(product.title, product_path(product)) %>
-            </td>
-            <td>
-              <%= product.price %>
-            </td>
+            <td> <%= link_to(product.title, product_path(product)) %> </td>
+            <td> <%= product.price %> </td>
+            <td> <%= current_cart.find_cart_item(product).quantity %> </td>
           </tr>
         <% end %>
       </tbody>
@@ -36,7 +34,7 @@
     <div class="order-form">
       <%= simple_form_for @order do |f| %>
         <%= f.simple_fields_for :info do |c| %>
-          <legend> 訂購人</legend>
+          <legend> 訂購人 </legend>
           <div class="form-group col-lg-6">
             <%= c.input :billing_name  %>
           </div>
@@ -44,7 +42,7 @@
             <%= c.input :billing_address  %>
           </div>
 
-          <legend> 收貨人</legend>
+          <legend> 收貨人 </legend>
           <div class="form-group col-lg-6">
            <%= c.input :shipping_name  %>
           </div>

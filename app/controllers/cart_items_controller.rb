@@ -4,16 +4,22 @@ class CartItemsController < ApplicationController
 
   def update
     @cart = current_cart
-    @item = @cart.cart_items.find_by(product_id: params[:id])
+    @item = @cart.find_cart_item(params[:id])
 
-    @item.update(item_params)
+    # user can't manually modify the quantity of shopping cart item if the quantity is not enough.
+    if @item.product.quantity >= item_params[:quantity].to_i
+      @item.update(item_params)
+      flash[:notice] = "成功變更數量"
+    else
+      flash[:warning] = "數量不足以加入購物車"
+    end
 
     redirect_to carts_path
   end
 
   def destroy
     @cart = current_cart
-    @item = @cart.cart_items.find_by(product_id: params[:id])
+    @item = @cart.find_cart_item(params[:id])
     @product = @item.product
     @item.destroy
 
