@@ -15,13 +15,14 @@ class Cart < ActiveRecord::Base
   end
 
   def total_price
+    cart_items.inject(0) { |sum, item| sum + (item.product.price * item.quantity) }
     # items.inject(0) { |sum, item| sum + item.price }
 
-    sum = 0
-    items.each do |item|
-      sum = sum + item.price
-    end
-    return sum
+    # sum = 0
+    # items.each do |item|
+    #   sum = sum + item.price
+    # end
+    # return sum
   end
 
   def clean!
