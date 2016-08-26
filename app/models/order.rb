@@ -14,6 +14,8 @@ class Order < ActiveRecord::Base
   # including buildind_name / building_address / shipping name / shipping address.
   accepts_nested_attributes_for :info
 
+  scope :recent, -> { order("id DESC") } # descending order
+
   def build_item_cache_from_cart(cart)
     cart.items.each do |cart_item|
       item = items.build
