@@ -2,7 +2,14 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :admin do
     resources :products
-    resources :orders
+    resources :orders do
+      member do         # 自定對特定元素的Action
+        post :cancel    # admin/orders#cancel
+        post :ship      # admin/orders#ship
+        post :shipped   # admin/orders#shipped
+        post :return    # admin/orders#return
+      end
+    end
   end
 
   resources :products do
